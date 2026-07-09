@@ -1,0 +1,26 @@
+
+/* Topbar */
+.topbar{background:#1a1a1a;color:#bbb;font-size:11px;padding:6px 32px;display:flex;align-items:center;gap:16px;letter-spacing:.04em;}
+.topbar-socials{display:flex;gap:10px;}
+.topbar-socials a{color:#999;}
+.topbar-center{flex:1;text-align:center;color:#e0c89a;font-weight:500;}
+.topbar-right{margin-left:auto;display:flex;gap:20px;}
+ 
+/* Navbar */
+.navbar{height:70px;background:rgba(248,246,243,.97);border-bottom:1px solid var(--clr-border);display:flex;align-items:center;gap:40px;padding:0 40px;position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.04);}
+.navbar-logo{font-family:var(--font-display);font-size:1.6rem;font-weight:600;letter-spacing:-.02em;flex-shrink:0;}
+.navbar-logo span{color:var(--clr-accent);}
+.navbar-links{display:flex;align-items:center;gap:32px;margin-right:auto;}
+.navbar-links a{font-size:13px;font-weight:500;color:var(--clr-text-secondary);letter-spacing:.04em;text-transform:uppercase;}
+.navbar-actions{display:flex;align-items:center;gap:8px;}
+.icon-btn{width:40px;height:40px;display:flex;align-items:center;justify-content:center;border-radius:var(--r-md);color:var(--clr-text-secondary);position:relative;}
+.cart-badge{position:absolute;top:4px;right:4px;width:16px;height:16px;background:var(--clr-accent);color:#fff;font-size:10px;font-weight:600;border-radius:99px;display:flex;align-items:center;justify-content:center;}
+ 
+.admin-dot {
+  position: absolute;
+  top: 6px; right: 6px;
+  width: 7px; height: 7px;
+  background: var(--clr-success);
+  border-radius: 99px;
+  border: 1.5px solid var(--clr-bg);
+}
