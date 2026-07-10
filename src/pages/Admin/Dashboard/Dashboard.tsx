@@ -10,11 +10,11 @@ import { imageUrl } from '@/utils/imageUrl'
 
 
 const STATUS_COLOR: Record<string, string> = {
-  en_attente:   'status--pending',
-  confirmé: 'status--confirmed',
-  expédié:   'status--shipped',
-  livré: 'status--delivered',
-  annulé: 'status--cancelled',
+  EN_ATTENTE:   'status--pending',
+  CONFIRME: 'status--confirmed',
+  EXPEDIE:   'status--shipped',
+  LIVRE: 'status--delivered',
+  ANNULE: 'status--cancelled',
 }
 export { STATUS_COLOR }
 

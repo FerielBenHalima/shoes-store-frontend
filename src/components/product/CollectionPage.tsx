@@ -45,7 +45,7 @@ export default function CollectionPage({ gender }: Props) {
   const categories = CATEGORIES_BY_GENDER[gender]
 
   const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading]   = useState(true)
+  const [_loading, setLoading]   = useState(true)
 
   const [filters, setFilters] = useState<Filters>({
     search: '', categories: [], sizes: [],

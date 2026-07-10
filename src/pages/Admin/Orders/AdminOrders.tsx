@@ -106,68 +106,71 @@ export default function AdminOrders() {
             onChange={e => setSearch(e.target.value)}
           />
         </div>
-
-        {/* Table */}
-        <div className="ao-card">
-          <div className="ao-table-wrap">
-            <table className="ao-table">
-              <thead>
-                <tr>
-                  <th>Commande</th>
-                  <th>Client</th>
-                  <th>Ville</th>
-                  <th>Total</th>
-                  <th>Date</th>
-                  <th>Statut</th>
-                  <th>Mettre à jour</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.length === 0 ? (
-                  <tr>
-                    <td colSpan={7} className="ao-empty"> Pas de commandes trouvées</td>
-                  </tr>
-                ) : (
-                  filtered.map(order => (
-                    <tr key={order.id}>
-                      <td className="ao-order-num">{order.orderNumber}</td>
-                      <td>{order.fullName}</td>
-                      <td>{order.city}</td>
-                      <td className="ao-total">{formatPrice(order.total)}</td>
-                      <td className="ao-date">
-                        {new Date(order.createdAt).toLocaleDateString('fr-TN')}
-
-                      </td>
-                      <td>
-                        <span className={`status-badge ${STATUS_COLOR[order.status]}`}>
-                          {order.status.toLowerCase()}
-                        </span>
-                      </td>
-                      <td>
-                        <select
-                          className="ao-status-select"
-                          value={order.status}
-                          onChange={e => updateStatus(order.id, e.target.value as Status)}
-                          disabled={updating === order.id}
-                        >
-                          {STATUS_OPTIONS.map(s => (
-                              <option key={s.value} value={s.value}>
-                                {s.label}
-                              </option>
-                            ))}
-                        </select>
-                        {updating === order.id && (
-                          <span className="ao-updating">enregistrement...</span>
-                        )}
-                      </td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
+        {loading ? (
+          <div className="ao-loading">
+            <div className="ao-spinner" />
           </div>
-        </div>
+          ) : (
+          <div className="ao-card">
+            <div className="ao-table-wrap">
+              <table className="ao-table">
+                <thead>
+                  <tr>
+                    <th>Commande</th>
+                    <th>Client</th>
+                    <th>Ville</th>
+                    <th>Total</th>
+                    <th>Date</th>
+                    <th>Statut</th>
+                    <th>Mettre à jour</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filtered.length === 0 ? (
+                    <tr>
+                      <td colSpan={7} className="ao-empty"> Pas de commandes trouvées</td>
+                    </tr>
+                  ) : (
+                    filtered.map(order => (
+                      <tr key={order.id}>
+                        <td className="ao-order-num">{order.orderNumber}</td>
+                        <td>{order.fullName}</td>
+                        <td>{order.city}</td>
+                        <td className="ao-total">{formatPrice(order.total)}</td>
+                        <td className="ao-date">
+                          {new Date(order.createdAt).toLocaleDateString('fr-TN')}
 
+                        </td>
+                        <td>
+                          <span className={`status-badge ${STATUS_COLOR[order.status]}`}>
+                            {getLabel(order.status)}
+                          </span>
+                        </td>
+                        <td>
+                          <select
+                            className="ao-status-select"
+                            value={order.status}
+                            onChange={e => updateStatus(order.id, e.target.value as Status)}
+                            disabled={updating === order.id}
+                          >
+                            {STATUS_OPTIONS.map(s => (
+                                <option key={s.value} value={s.value}>
+                                  {s.label}
+                                </option>
+                              ))}
+                          </select>
+                          {updating === order.id && (
+                            <span className="ao-updating">enregistrement...</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
     </AdminLayout>
   )

@@ -100,108 +100,110 @@ export default function AdminProducts() {
           </div>
         </div>
 
-        {/* Table */}
-        <div className="ap-card">
-          <div className="ap-table-wrap">
-            <table className="ap-table">
-              <thead>
-                <tr>
-                  <th>Produit</th>
-                  <th>Categorie</th>
-                  <th>Sexe</th>
-                  <th>Prix</th>
-                  <th>Stock</th>
-                  <th>Variantes</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {filtered.map(product => (
-                  <tr key={product.id}>
-                    {/* Product */}
-                    <td>
-                      <div className="ap-product-cell">
-                        <img
-                          src={imageUrl(product.images[0]?.url ?? '')}
-                          alt={product.name}
-                          className="ap-product-img"
-                        />
-                        <div>
-                          <p className="ap-product-name">{product.name}</p>
-                          <p className="ap-product-slug">{product.slug}</p>
-                        </div>
-                      </div>
-                    </td>
-
-                    {/* Category */}
-                    <td className="ap-cell-cap">{product.category}</td>
-
-                    {/* Gender */}
-                    <td>
-                      <span className={`ap-gender-badge ap-gender--${product.gender}`}>
-                        {product.gender}
-                      </span>
-                    </td>
-
-                    {/* Price */}
-                    <td>
-                      <p className="ap-price">{formatPrice(product.price)}</p>
-                      {product.compareAtPrice && (
-                        <p className="ap-compare">{formatPrice(product.compareAtPrice)}</p>
-                      )}
-                    </td>
-
-                    {/* Stock */}
-                    <td>
-                      <span className={`ap-stock${totalStock(product) <= 5 ? ' ap-stock--low' : ''}`}>
-                        {totalStock(product)} unités
-                      </span>
-                    </td>
-
-                    {/* Variants */}
-                    <td>
-                      <div className="ap-variants">
-                        {[...new Set(product.variants.map(v => v.color))].map(color => {
-                          const hex = product.variants.find(v => v.color === color)?.colorHex
-                          return (
-                            <span
-                              key={color}
-                              className="ap-color-dot"
-                              style={{ background: hex }}
-                              title={color}
-                            />
-                          )
-                        })}
-                        <span className="ap-variants-count">
-                          {product.variants.length} variantes
-                        </span>
-                      </div>
-                    </td>
-
-                    {/* Actions */}
-                    <td>
-                      <div className="ap-actions">
-                        <button 
-                          className="ap-action-btn ap-action-btn--edit"
-                          onClick={() => setEditingProduct(product)}>
-                          Modifier
-                        </button>
-                        <button
-                          className="ap-action-btn ap-action-btn--delete"
-                          onClick={() => handleDelete(product.id)}
-                          disabled={deleting === product.id}
-                        >
-                          {deleting === product.id ? '...' : 'Supprimer'}
-                        </button>
-                      </div>
-                    </td>
+        {loading ? (
+          <div className="ap-loading"><div className="ap-spinner" /></div>
+        ) : ( 
+          <div className="ap-card">
+            <div className="ap-table-wrap">
+              <table className="ap-table">
+                <thead>
+                  <tr>
+                    <th>Produit</th>
+                    <th>Categorie</th>
+                    <th>Sexe</th>
+                    <th>Prix</th>
+                    <th>Stock</th>
+                    <th>Variantes</th>
+                    <th>Actions</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+                </thead>
+                <tbody>
+                  {filtered.map(product => (
+                    <tr key={product.id}>
+                      {/* Product */}
+                      <td>
+                        <div className="ap-product-cell">
+                          <img
+                            src={imageUrl(product.images[0]?.url ?? '')}
+                            alt={product.name}
+                            className="ap-product-img"
+                          />
+                          <div>
+                            <p className="ap-product-name">{product.name}</p>
+                            <p className="ap-product-slug">{product.slug}</p>
+                          </div>
+                        </div>
+                      </td>
 
+                      {/* Category */}
+                      <td className="ap-cell-cap">{product.category}</td>
+
+                      {/* Gender */}
+                      <td>
+                        <span className={`ap-gender-badge ap-gender--${product.gender}`}>
+                          {product.gender}
+                        </span>
+                      </td>
+
+                      {/* Price */}
+                      <td>
+                        <p className="ap-price">{formatPrice(product.price)}</p>
+                        {product.compareAtPrice && (
+                          <p className="ap-compare">{formatPrice(product.compareAtPrice)}</p>
+                        )}
+                      </td>
+
+                      {/* Stock */}
+                      <td>
+                        <span className={`ap-stock${totalStock(product) <= 5 ? ' ap-stock--low' : ''}`}>
+                          {totalStock(product)} unités
+                        </span>
+                      </td>
+
+                      {/* Variants */}
+                      <td>
+                        <div className="ap-variants">
+                          {[...new Set(product.variants.map(v => v.color))].map(color => {
+                            const hex = product.variants.find(v => v.color === color)?.colorHex
+                            return (
+                              <span
+                                key={color}
+                                className="ap-color-dot"
+                                style={{ background: hex }}
+                                title={color}
+                              />
+                            )
+                          })}
+                          <span className="ap-variants-count">
+                            {product.variants.length} variantes
+                          </span>
+                        </div>
+                      </td>
+
+                      {/* Actions */}
+                      <td>
+                        <div className="ap-actions">
+                          <button 
+                            className="ap-action-btn ap-action-btn--edit"
+                            onClick={() => setEditingProduct(product)}>
+                            Modifier
+                          </button>
+                          <button
+                            className="ap-action-btn ap-action-btn--delete"
+                            onClick={() => handleDelete(product.id)}
+                            disabled={deleting === product.id}
+                          >
+                            {deleting === product.id ? '...' : 'Supprimer'}
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        )}
       </div>
       {/* Modal */}
       {showModal && (
