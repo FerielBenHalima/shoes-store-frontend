@@ -24,11 +24,6 @@ function slugify(str: string) {
   return str.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 }
 
-function generateSku(productName: string, color: string, size: number): string {
-  const namePart  = productName.trim().split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 3)
-  const colorPart = color.trim().slice(0, 3).toUpperCase()
-  return `${namePart}-${colorPart}-${size}`
-}
 
 /* ─── Color variant type ─────────────────────────────────── */
 interface ColorVariant {
@@ -38,7 +33,6 @@ interface ColorVariant {
   sizes: {
     size:    number
     stock:   string
-    sku:     string
     checked: boolean
   }[]
 }
@@ -64,7 +58,6 @@ function buildColorVariants(variants: Variant[], gender: string): ColorVariant[]
         return {
           size,
           stock:   existing ? existing.stock.toString() : '',
-          sku:     existing ? existing.sku : '',
           checked: checkedSizes.has(size),
         }
       }),
@@ -124,7 +117,7 @@ export default function EditProductModal({ product, onClose, onUpdate }: Props) 
         ...cv,
         sizes: getSizes(value).map(size => {
           const existing = cv.sizes.find(s => s.size === size)
-          return existing ?? { size, stock: '', sku: '', checked: false }
+          return existing ?? { size, stock: '', checked: false }
         }),
       })))
     }
@@ -139,7 +132,7 @@ export default function EditProductModal({ product, onClose, onUpdate }: Props) 
       color:    '',
       colorHex: '#c8975a',
       sizes:    getSizes(form.gender).map(size => ({
-        size, stock: '', sku: '', checked: false,
+        size, stock: '', checked: false,
       })),
     }])
   }
@@ -153,12 +146,7 @@ export default function EditProductModal({ product, onClose, onUpdate }: Props) 
         ? {
             ...cv,
             [field]: value,
-            sizes: field === 'color'
-              ? cv.sizes.map(s => ({
-                  ...s,
-                  sku: s.checked ? generateSku(form.name, value, s.size) : '',
-                }))
-              : cv.sizes,
+            
           }
         : cv
     ))
@@ -174,7 +162,6 @@ export default function EditProductModal({ product, onClose, onUpdate }: Props) 
                 ? {
                     ...s,
                     checked: !s.checked,
-                    sku:     !s.checked ? generateSku(form.name, cv.color, size) : '',
                     stock:   !s.checked ? s.stock : '',
                   }
                 : s
@@ -251,7 +238,6 @@ export default function EditProductModal({ product, onClose, onUpdate }: Props) 
           color:    cv.color,
           colorHex: cv.colorHex,
           stock:    parseInt(s.stock),
-          sku:      s.sku,
         }))
     )
 
@@ -524,7 +510,6 @@ export default function EditProductModal({ product, onClose, onUpdate }: Props) 
                                 value={s.stock}
                                 onChange={e => updateSizeField(cv.id, s.size, 'stock', e.target.value)}
                               />
-                              <p className="apm-sku-preview">{s.sku}</p>
                             </div>
                           )}
                         </div>

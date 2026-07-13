@@ -18,7 +18,7 @@ function makeColorVariant(id: number, gender: string): ColorVariant {
     color:    '',
     colorHex: '#c8975a',
     sizes: getSizes(gender).map(size => ({
-      size, stock: '', sku: '', checked: false,
+      size, stock: '', checked: false,
     })),
   }
 }
@@ -27,12 +27,7 @@ function slugify(str: string) {
   return str.toLowerCase().trim().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
 }
 
-function generateSku(productName: string, color: string, size: number): string {
-  const namePart  = productName.trim().split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 3)
-  const colorPart = color.trim().slice(0, 3).toUpperCase()
-  const sizePart  = size.toString()
-  return `${namePart}-${colorPart}-${sizePart}`
-}
+
 /* ─── Props ──────────────────────────────────────────────── */
 interface Props {
   onClose: () => void
@@ -68,7 +63,7 @@ export default function AddProductModal({ onClose, onAdd }: Props) {
       setColorVariants(prev => prev.map(cv => ({
         ...cv,
         sizes: getSizes(value).map(size => ({
-          size, stock: '', sku: '', checked: false,
+          size, stock: '', checked: false,
         })),
       })))
     }
@@ -94,13 +89,7 @@ export default function AddProductModal({ onClose, onAdd }: Props) {
       ? {
           ...cv,
           [field]: value,
-          // regenerate SKUs for all checked sizes when color name changes
-          sizes: field === 'color'
-            ? cv.sizes.map(s => ({
-                ...s,
-                sku: s.checked ? generateSku(form.name, value, s.size) : '',
-              }))
-            : cv.sizes,
+            
         }
       : cv
   ))
@@ -117,9 +106,7 @@ export default function AddProductModal({ onClose, onAdd }: Props) {
                   ...s,
                   checked: !s.checked,
                   stock:   !s.checked ? s.stock : '',
-                  sku:     !s.checked
-                    ? generateSku(form.name, cv.color, size)
-                    : '',
+                  
                 }
               : s
           ),
@@ -131,7 +118,7 @@ export default function AddProductModal({ onClose, onAdd }: Props) {
   const updateSizeField = (
     cvId: number,
     size: number,
-    field: 'stock' | 'sku',
+    field: 'stock',
     value: string
   ) => {
     setColorVariants(prev => prev.map(cv =>
@@ -201,7 +188,6 @@ export default function AddProductModal({ onClose, onAdd }: Props) {
         color:    cv.color,
         colorHex: cv.colorHex,
         stock:    parseInt(s.stock),
-        sku:      s.sku,
       }))
   )
 
@@ -469,7 +455,7 @@ export default function AddProductModal({ onClose, onAdd }: Props) {
                             <span>{s.size}</span>
                           </label>
 
-                          {/* Stock + SKU inputs — only show when checked */}
+                          {/* Stock inputs — only show when checked */}
                           {s.checked && (
                             <div className="apm-size-fields">
                               <input
@@ -479,7 +465,6 @@ export default function AddProductModal({ onClose, onAdd }: Props) {
                                 value={s.stock}
                                 onChange={e => updateSizeField(cv.id, s.size, 'stock', e.target.value)}
                               />
-                                <p className="apm-sku-preview">{s.sku}</p>
 
                             </div>
                           )}

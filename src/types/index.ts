@@ -13,7 +13,7 @@ export interface Variant {
   color: string
   colorHex: string
   stock: number
-  sku: string
+  
 }
 
 export interface Product {
@@ -82,7 +82,6 @@ export interface VariantForm {
   color:    string
   colorHex: string
   stock:    string
-  sku:      string
 }
 
 export interface ColorVariant {
@@ -92,7 +91,7 @@ export interface ColorVariant {
   sizes: {
     size:  number
     stock: string
-    sku:   string
+    
     checked: boolean
   }[]
 }

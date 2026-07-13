@@ -30,8 +30,14 @@ export const productsService = {
   },
 
   async create(formData: FormData): Promise<Product> {
+    const token = localStorage.getItem('admin_token')
     const { data } = await api.post<Product>('/products', formData, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: { 
+        'Content-Type': 'multipart/form-data',
+      
+        'Authorization': `Bearer ${token}`,
+
+       },
     })
     return data
   },
@@ -41,8 +47,13 @@ export const productsService = {
   },
 
   async update(id: number, formData: FormData): Promise<Product> {
-  const { data } = await api.put<Product>(`/products/${id}`, formData, {
-    headers: { 'Content-Type': 'multipart/form-data' },
+    const token = localStorage.getItem('admin_token')
+    const { data } = await api.put<Product>(`/products/${id}`, formData, {
+    headers: { 
+      'Content-Type': 'multipart/form-data',
+      'Authorization': `Bearer ${token}`,
+
+     },
   })
   return data
 },
