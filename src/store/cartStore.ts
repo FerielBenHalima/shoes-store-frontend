@@ -10,6 +10,8 @@ interface CartStore {
   updateQuantity: (itemId: string, qty: number) => void
   clearCart: () => void
   toggleCart: () => void
+  validateCart: (availableProducts: Product[]) => void
+
 }
 
 export const useCartStore = create<CartStore>()(
@@ -60,7 +62,50 @@ export const useCartStore = create<CartStore>()(
 
       clearCart: () => set({ items: [] }),
       toggleCart: () => set(s => ({ isOpen: !s.isOpen })),
+      validateCart: (availableProducts: Product[]) => {
+        const { items } = get()
+        console.log('validateCart called — cart items:', items.length, 'available products:', availableProducts.length)
+
+        if (items.length === 0) {    
+          console.log('Cart is empty — skipping')
+          return
+        }
+        const validItems = items.filter(cartItem => {
+          // Check product still exists
+          const product = availableProducts.find(
+            p => String(p.id) === String(cartItem.product.id)
+          )
+          if (!product) {
+            console.log('Product removed from backend:', cartItem.product.name)
+             return false
+          }
+
+          // Check variant still exists
+          const variant = product.variants.find(
+            v => String(v.id) === String(cartItem.variant.id)
+          )
+          if (!variant) {      
+            console.log('Variant removed from backend:', cartItem.variant.color, cartItem.variant.size)
+            return false
+          }
+          // Check variant still has stock
+          if (variant.stock <= 0) {
+            console.log('Variant out of stock:', cartItem.variant.color, cartItem.variant.size)
+            return false
+          }
+          return true
+        })
+        console.log('Valid items after validation:', validItems.length)
+
+        // Only update if something was removed
+        if (validItems.length !== items.length) {
+          console.log('Updating cart — removing', items.length - validItems.length, 'items')
+
+          set({ items: validItems })
+        }
+      },
     }),
+    
     { name: 'shoes-cart' }
   )
 )
