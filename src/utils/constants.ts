@@ -10,7 +10,7 @@ export const EMPTY_FORM: ProductForm = {
 }
 
 export const EMPTY_VARIANT: VariantForm = {
-  size: '', color: '', colorHex: '#000000', stock: '', sku: '',
+  size: '', color: '', colorHex: '#000000', stock: '',
 }
 
 
