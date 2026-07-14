@@ -95,3 +95,21 @@
 .ap-action-btn--delete { color: var(--clr-danger); border-color: var(--clr-danger); }
 .ap-action-btn--delete:hover { background: var(--clr-danger); color: #fff; }
 .ap-action-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+
+@media (max-width: 768px) {
+  .ap-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .ap-gender-tabs { flex-wrap: wrap; }
+  .ap-table-wrap  { overflow-x: auto; }
+  .ap-table       { min-width: 700px; }
+  .ap-header      { flex-wrap: wrap; gap: 12px; }
+}
+
+@media (max-width: 480px) {
+  .ap-wrap   { gap: 16px; }
+  .ap-title  { font-size: 1.2rem; }
+  .ap-add-btn { width: 100%; }
+}

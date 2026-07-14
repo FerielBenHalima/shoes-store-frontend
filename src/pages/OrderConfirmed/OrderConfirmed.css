@@ -226,9 +226,21 @@
   .oc-layout { grid-template-columns: 1fr; }
   .oc-right  { order: -1; }
 }
+
 @media (max-width: 640px) {
-  .oc-banner  { flex-direction: column; text-align: center; }
+  .oc-wrap    { padding-top: 24px; gap: 16px; }
+  .oc-banner  { flex-direction: column; text-align: center; padding: 20px; }
+  .oc-check   { align-self: center; }
+  .oc-title   { font-size: 1.4rem; }
+
   .oc-info-grid { grid-template-columns: 1fr; }
-  .oc-actions { flex-direction: row; flex-wrap: wrap; }
-  .oc-btn     { flex: 1; min-width: 140px; }
+  .oc-card      { padding: 18px 16px; }
+
+  .oc-order-number { flex-direction: column; gap: 4px; }
+
+  .oc-actions { flex-direction: column; }
+  .oc-btn     { width: 100%; }
+
+  .oc-steps   { gap: 0; }
+  .oc-step-line { height: 20px; }
 }

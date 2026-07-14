@@ -105,9 +105,21 @@
 }
 .stock-pill--critical { background: #fef2f2; color: #dc2626; }
 
-@media (max-width: 900px) { .dash-stats { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 480px) { .dash-stats { grid-template-columns: 1fr; } }
+@media (max-width: 900px) {
+  .dash-stats { grid-template-columns: repeat(2, 1fr); }
+  .dash-table-wrap { overflow-x: auto; }
+  .dash-table { min-width: 560px; }
+}
 
+@media (max-width: 480px) {
+  .dash-stats  { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .stat-card   { padding: 14px 16px; gap: 12px; }
+  .stat-value  { font-size: 1.1rem; }
+  .stat-icon   { width: 40px; height: 40px; font-size: 18px; }
+
+  .low-stock-item { flex-wrap: wrap; }
+  .dash-card  { padding: 16px; }
+}
 .dash-loading {
   display: flex; align-items: center;
   justify-content: center; min-height: 60vh;

@@ -24,3 +24,35 @@
   border-radius: 99px;
   border: 1.5px solid var(--clr-bg);
 }
+
+@media (max-width: 768px) {
+  .topbar      { display: none; }
+  .navbar      { padding: 0 16px; height: 60px; gap: 12px; }
+  .navbar-logo { font-size: 1.4rem; }
+
+  .navbar-links { display: none; }
+  .navbar-links.open {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0; left: 0;
+    width: 80vw; height: 100vh;
+    background: var(--clr-surface);
+    padding: 80px 24px 40px;
+    box-shadow: var(--shadow-lg);
+    z-index: 210;
+    gap: 8px;
+    overflow-y: auto;
+  }
+  .navbar-links.open li a {
+    font-size: 16px;
+    padding: 12px 0;
+    display: block;
+    border-bottom: 1px solid var(--clr-border);
+  }
+
+  .navbar-burger { display: flex; }
+
+  .icon-btn { width: 36px; height: 36px; }
+  .navbar-actions { gap: 4px; }
+}

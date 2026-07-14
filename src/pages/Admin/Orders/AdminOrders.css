@@ -86,3 +86,15 @@
   border-radius: 99px;
   animation: spin 0.7s linear infinite;
 }
+
+@media (max-width: 768px) {
+  .ao-tabs       { flex-wrap: wrap; gap: 6px; }
+  .ao-tab        { font-size: 12px; padding: 6px 12px; }
+  .ao-table-wrap { overflow-x: auto; }
+  .ao-table      { min-width: 650px; }
+}
+
+@media (max-width: 480px) {
+  .ao-wrap  { gap: 14px; }
+  .ao-title { font-size: 1.2rem; }
+}

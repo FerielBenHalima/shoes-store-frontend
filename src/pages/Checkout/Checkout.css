@@ -331,14 +331,20 @@
 
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 960px) {
-  .co-layout {
-    grid-template-columns: 1fr;
-  }
+  .co-layout { grid-template-columns: 1fr; }
   .co-summary { position: static; order: -1; }
   .co-submit-btn:not(.co-submit-btn--mobile) { display: none; }
   .co-submit-btn--mobile { display: flex; }
 }
+
 @media (max-width: 640px) {
-  .co-fields { grid-template-columns: 1fr; }
+  .co-header  { padding-top: 20px; }
+  .co-title   { font-size: 1.6rem; }
+  .co-fields  { grid-template-columns: 1fr; }
   .co-field--full { grid-column: 1; }
+  .co-card    { padding: 20px 16px; }
+  .co-summary { padding: 20px 16px; }
+
+  .co-delivery-option { flex-wrap: wrap; gap: 10px; }
+  .co-payment-option  { flex-wrap: wrap; }
 }

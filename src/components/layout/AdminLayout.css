@@ -141,9 +141,14 @@
 
 /* ── Responsive ──────────────────────────────────────────── */
 @media (max-width: 768px) {
-  .adm-sidebar { transform: translateX(-100%); }
+  .adm-sidebar {
+    transform: translateX(-100%);
+    width: 80vw;
+  }
   .adm-sidebar--open { transform: translateX(0); }
-  .adm-main { margin-left: 0; }
-  .adm-burger { display: flex; }
-  .adm-content { padding: 20px 16px; }
+  .adm-main    { margin-left: 0; }
+  .adm-burger  { display: flex; }
+  .adm-content { padding: 16px 12px; }
+  .adm-topbar  { padding: 0 16px; }
+  .adm-page-title { font-size: 1rem; }
 }

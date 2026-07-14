@@ -317,23 +317,29 @@
 @media (max-width: 900px) {
   .pd-layout {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 24px;
+    padding-top: 16px;
+    padding-bottom: 60px;
   }
   .pd-gallery { position: static; }
 }
-@media (max-width: 640px) {
-  .pd-actions { flex-wrap: wrap; }
-  .pd-add-btn { width: 100%; }
-}
 
-.pd-loading {
-  display: flex; align-items: center; justify-content: center;
-  min-height: 60vh;
-}
-.pd-spinner {
-  width: 40px; height: 40px;
-  border: 2px solid var(--clr-border);
-  border-top-color: var(--clr-accent);
-  border-radius: 99px;
-  animation: spin 0.7s linear infinite;
+@media (max-width: 640px) {
+  .pd-breadcrumb { font-size: 12px; padding-top: 16px; }
+  .pd-name       { font-size: 1.6rem; }
+  .pd-thumbnails { gap: 6px; }
+  .pd-thumb      { width: 56px; height: 66px; }
+
+  .pd-actions    { flex-wrap: wrap; gap: 10px; }
+  .pd-qty        { flex-shrink: 0; }
+  .pd-add-btn    { width: 100%; }
+
+  .pd-sizes      { gap: 6px; }
+  .pd-size-btn   { width: 44px; height: 36px; font-size: 12px; }
+
+  .pd-perks      { padding: 14px; }
+  .pd-perk       { font-size: 12px; }
+
+  .modal         { max-height: 90vh; }
+  .size-table    { font-size: 12px; }
 }
